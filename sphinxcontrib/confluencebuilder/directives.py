@@ -9,6 +9,7 @@ from sphinxcontrib.confluencebuilder.nodes import confluence_excerpt_include
 from sphinxcontrib.confluencebuilder.nodes import confluence_latex_block
 from sphinxcontrib.confluencebuilder.nodes import confluence_metadata
 from sphinxcontrib.confluencebuilder.nodes import confluence_newline
+from sphinxcontrib.confluencebuilder.nodes import confluence_pagetree
 from sphinxcontrib.confluencebuilder.nodes import confluence_toc
 from sphinxcontrib.confluencebuilder.nodes import jira
 from sphinxcontrib.confluencebuilder.nodes import jira_issue
@@ -144,6 +145,28 @@ class ConfluenceNewline(Directive):
 
     def run(self):
         node = confluence_newline()
+
+        return [node]
+
+
+class ConfluencePageTree(Directive):
+    has_content = False
+    option_spec = {
+        'root': directives.unchanged,
+        'sort': lambda x: directives.choice(x, ('bitwise', 'creation', 'modified', 'natural', 'position')),
+        'excerpt': lambda x: directives.choice(x, ('true', 'false')),
+        'reverse': lambda x: directives.choice(x, ('true', 'false')),
+        'search-box': lambda x: directives.choice(x, ('true', 'false')),
+        'expand-collapse-all': lambda x: directives.choice(x, ('true', 'false')),
+        'start-depth': directives.positive_int,
+    }
+    final_argument_whitespace = True
+
+    def run(self):
+        node = confluence_pagetree()
+
+        for k, v in self.options.items():
+            node.params[kebab_case_to_camel_case(k)] = v
 
         return [node]
 

@@ -2497,6 +2497,18 @@ class ConfluenceStorageFormatTranslator(ConfluenceBaseTranslator):
 
         raise nodes.SkipNode
 
+    # ----------------------------------------------
+    # confluence-builder -- enhancements -- pagetree
+    # ----------------------------------------------
+
+    def visit_confluence_pagetree(self, node):
+        self.body.append(self._start_ac_macro(node, 'pagetree'))
+        for k, v in sorted(node.params.items()):
+            self.body.append(self._build_ac_param(node, k, str(v)))
+        self.body.append(self._end_ac_macro(node))
+
+        raise nodes.SkipNode
+
     # ---------------------------------------------------
     # sphinx -- extension (third party) -- jupyter-sphinx
     # ---------------------------------------------------

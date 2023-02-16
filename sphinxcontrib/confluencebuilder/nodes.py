@@ -146,6 +146,15 @@ class confluence_page_generation_notice(nodes.TextElement):
     """
 
 
+class confluence_pagetree(nodes.Structural, ConfluenceParams):
+    """
+    confluence pagetree node
+
+    Provides a Confluence's Page Tree macro; an alternative to Sphinx's TOC and
+    reStructuredText's contents directive.
+    """
+
+
 class confluence_source_link(nodes.Structural, ConfluenceParams):
     """
     confluence source link node
