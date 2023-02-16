@@ -153,6 +153,7 @@ class ConfluencePageTree(Directive):
     has_content = False
     option_spec = {
         'root': directives.unchanged,
+        'spaces': directives.unchanged,
         'sort': lambda x: directives.choice(x, ('bitwise', 'creation', 'modified', 'natural', 'position')),
         'excerpt': lambda x: directives.choice(x, ('true', 'false')),
         'reverse': lambda x: directives.choice(x, ('true', 'false')),
